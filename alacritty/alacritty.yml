@@ -104,3 +104,8 @@ draw_bold_text_with_bright_colors: false
 
 # Live config reload (changes require restart)
 live_config_reload: true
+
+# Shortcut configuration (changes require reset shortcut in macOS setting)
+key_bindings:
+  - { key: Q,              mods: Command,                    action: None             }
+  - { key: W,              mods: Command,                    action: None             }
