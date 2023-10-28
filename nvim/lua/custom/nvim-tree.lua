@@ -21,6 +21,7 @@ nvim_tree.setup {
     api.config.mappings.default_on_attach(bufnr)
 
     vim.keymap.set('n', 't', api.node.open.tab, opts('Open: New Tab'))
+    vim.keymap.set('n', '<escape>', api.tree.close, opts('Close'))
   end,
   update_focused_file = {
     enable = true,
