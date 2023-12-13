@@ -1,6 +1,11 @@
-local status_ok, comment = pcall(require, "nvim_comment")
-if not status_ok then
-  return
+local M = {
+  "terrortylor/nvim-comment"
+}
+
+M.config = function()
+  local nvim_comment = require("nvim_comment")
+
+  nvim_comment.setup()
 end
 
-comment.setup {}
+return M

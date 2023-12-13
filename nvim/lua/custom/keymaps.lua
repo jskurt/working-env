@@ -33,15 +33,10 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
--- Normal mode end --
-
--- Insert mode start --
--- Press jk fast to exit insert mode 
-keymap("i", "jk", "<ESC>", opts)
--- Insert mode end --
+-- Navigate tab start --
+keymap("n", "]", ":+tabmove<CR>", opts)
+keymap("n", "[", ":-tabmove<CR>", opts)
+-- Navigate tab end --
 
 -- Visual mode start --
 -- Stay in indent mode
@@ -55,13 +50,15 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 -- Visual Block mode end --
 
+-- Telescope map start --
+keymap('n', '<Leader>f', ':Telescope find_files<CR>', opts)
+keymap('n', '<Leader>rg', ':Telescope live_grep<CR>', opts)
+keymap('v', '<Leader>rg', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR>', opts)
+-- Telescope map end --
+
 vim.cmd [[
   " copy current file path to clipboard
   nnoremap <Leader>cp :let @+ = expand("%")<CR>
-
-  " ripgrep
-  nnoremap <Leader>rg :Rg 
-  xnoremap <Leader>rg y:Rg <C-R>"
 
   " console log
   nnoremap <Leader>cl :silent put=['console.log(\"<C-r><C-w>\", <C-r><C-w>);']<CR>-2==+

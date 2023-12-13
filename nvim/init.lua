@@ -1,26 +1,41 @@
+-- this should be called first so we can use spec func
+require "custom.launch"
+
 require "custom.keymaps"
-require "custom.plugins"
-require "custom.colorscheme"
-require "custom.cmp"
-require "custom.lsp"
-require "custom.treesitter"
-require "custom.autopairs"
-require "custom.comment"
-require "custom.gitsigns"
-require "custom.nvim-tree"
-require "custom.impatient"
-require "custom.indentline"
-require "custom.whichkey"
-require "custom.autocommands"
-require "custom.airline"
-require "custom.subversive"
-require "custom.vimwiki"
-require "custom.test"
-require "custom.floaterm"
-require "custom.highlightyark"
-require "custom.fzf"
-require "custom.spectre"
 require "custom.options"
-require "custom.copilot"
-require "custom.rest-nvim"
-require "custom.markdown-preview"
+require "custom.autocommands"
+
+-- lsp
+spec "custom.lsp.mason"
+spec "custom.lsp.none-ls"
+spec "custom.lsp.lsp-signature"
+
+spec "custom.whichkey"
+spec "custom.typescript"
+spec "custom.colorscheme"
+spec "custom.comment"
+spec "custom.vimwiki"
+spec "custom.highlightyark"
+spec "custom.treesitter"
+spec "custom.nvim-tree"
+spec "custom.telescope"
+spec "custom.airline"
+spec "custom.gitsigns"
+spec "custom.floaterm"
+spec "custom.copilot"
+spec "custom.cmp"
+spec "custom.autopairs" -- this should be after cmp
+spec "custom.test"
+spec "custom.markdown-preview"
+spec "custom.bookmarks"
+spec "custom.prisma" -- tree sitter is not working for some reason
+
+-- vim extra combinations start
+spec "custom.subversive"
+spec "custom.surround"
+spec "custom.replace-with-register"
+
+-- search and replace text
+spec "custom.spectre"
+
+require "custom.lazy" -- this should be the last
