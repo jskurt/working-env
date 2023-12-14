@@ -6,13 +6,10 @@ M.config = function()
   local signature = require("lsp_signature")
   local setup = {
     debug = false,
-
     bind = true,
     doc_lines = 10,
-
     floating_window = true,
     floating_window_above_cur_line = true,
-
     fix_pos = false,
     hint_enable = false,
     use_lspsaga = false,
@@ -22,15 +19,11 @@ M.config = function()
     handler_opts = {
       border = "rounded", -- double, rounded, single, shadow, none
     },
-
     always_trigger = true,
-
     auto_close_after = nil,
     extra_trigger_chars = {},
     zindex = 200,
-
     padding = "",
-
     transparency = nil,
     shadow_blend = 36,
     shadow_guibg = "Black",

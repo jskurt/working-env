@@ -16,13 +16,13 @@ M.config = function()
   -- hopefully this will be fixed in the future
   local function fzf_multi_select(prompt_bufnr)
     local picker = action_state.get_current_picker(prompt_bufnr)
-    local num_selections = table.getn(picker:get_multi_selection())
+    local selections = picker:get_multi_selection()
 
-    if num_selections > 1 then
-      local _picker = action_state.get_current_picker(prompt_bufnr)
-      for _, entry in ipairs(_picker:get_multi_selection()) do
+    if #selections > 1 then
+      for _, entry in ipairs(selections) do
         vim.cmd(string.format("%s %s", ":tabnew!", entry.value))
       end
+      vim.cmd(":stopinsert")
     else
       actions.select_tab(prompt_bufnr)
     end

@@ -5,8 +5,7 @@ local M = {
       "williamboman/mason.nvim"
     },
     {
-      "neovim/nvim-lspconfig",
-      event = { "BufReadPre", "BufNewFile" }
+      "neovim/nvim-lspconfig"
     }
   },
 }
@@ -50,7 +49,6 @@ local function common_capabilities()
   if status_ok then
     return cmp_nvim_lsp.default_capabilities()
   end
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -70,34 +68,19 @@ local function lsp_keymaps(bufnr)
 
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
-  vim.api.nvim_buf_set_keymap(
-    bufnr,
-    "n",
-    "gl",
-    '<cmd>lua vim.diagnostic.open_float()<CR>',
-    options
-  )
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float()<CR>', options)
 end
 
 local function on_init(client)
   -- let's see if we can get this working
-  -- if client.name == "tsserver" and client.server_capabilities then
-  -- end
-  client.server_capabilities.documentFormattingProvider = false
+  if client.name == "tsserver" and client.server_capabilities then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+
   client.server_capabilities.semanticTokensProvider = nil
 end
 
 local function on_attach(_, bufnr)
-  vim.cmd [[
-    augroup format_on_save
-      autocmd!
-      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false })
-    augroup end
-  ]]
-
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   lsp_keymaps(bufnr)
 end
 
