@@ -34,9 +34,14 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate tab start --
-keymap("n", "]", ":+tabmove<CR>", opts)
-keymap("n", "[", ":-tabmove<CR>", opts)
+keymap("n", "}", ":+tabmove<CR>", opts)
+keymap("n", "{", ":-tabmove<CR>", opts)
 -- Navigate tab end --
+
+-- Navigate buffer file start --
+keymap("n", "<C-i>", ":bnext<CR>", opts)
+keymap("n", "<C-o>", ":bprevious<CR>", opts)
+-- Navigate buffer file end --
 
 -- Visual mode start --
 -- Stay in indent mode

@@ -1,11 +1,19 @@
 local M = {
-  "terrortylor/nvim-comment"
+  "numToStr/Comment.nvim",
+  dependencies = {
+    {
+      "JoosepAlviste/nvim-ts-context-commentstring"
+    }
+  }
 }
 
 M.config = function()
-  local nvim_comment = require("nvim_comment")
+  local comment = require("Comment")
+  local setup = {
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+  }
 
-  nvim_comment.setup()
+  comment.setup(setup)
 end
 
 return M

@@ -42,7 +42,7 @@ M.config = function()
     },
     indent = {
       enable = true,
-    },
+    }
   }
 
   nvim_treesitter_config.setup(setup)
