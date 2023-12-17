@@ -123,6 +123,7 @@ M.config = function()
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
       I = { "<cmd>LspInstallInfo<CR>", "Installer Info" },
+      r = { "<cmd>LspRestart<CR>", "Restart Lsp Server" },
     },
 
     s = {
