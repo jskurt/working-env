@@ -63,10 +63,55 @@ local function common_capabilities()
   return capabilities
 end
 
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
+
+local function filterReactDTS(value)
+  return string.match(value.filename, 'react/index.d.ts') == nil
+end
+
+local function on_list(options)
+  local items = options.items
+
+  if #items > 1 then
+    local filtered_items = filter(items, filterReactDTS)
+    vim.fn.setqflist({}, ' ', { title = options.title, items = filtered_items, context = options.context })
+
+    if #filtered_items > 1 then
+      vim.api.nvim_command('copen')
+    elseif #filtered_items == 1 then
+      vim.api.nvim_command('cfirst')
+    end
+  elseif #items == 1 then
+    vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
+    vim.api.nvim_command('cfirst')
+  end
+end
+
 local function lsp_keymaps(bufnr)
   local options = { noremap = true, silent = true }
 
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", options)
+  vim.keymap.set(
+    "n",
+    "gd",
+    function()
+      vim.lsp.buf.definition { on_list = on_list }
+    end,
+    { noremap = options.noremap, silent = options.silent, buffer = bufnr }
+  )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", options)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", '<cmd>lua vim.diagnostic.open_float()<CR>', options)
 end
