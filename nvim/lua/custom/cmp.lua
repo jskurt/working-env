@@ -13,10 +13,13 @@ local M = {
     {
       "hrsh7th/cmp-path",
       event = "InsertEnter"
+    },
+    {
+      "L3MON4D3/LuaSnip",
+      event = "InsertEnter"
     }
   }
 }
--- 'hrsh7th/cmp-cmdline',
 
 M.config = function()
   local cmp = require("cmp")
@@ -32,7 +35,16 @@ M.config = function()
       { name = "nvim_lsp" },
       { name = "buffer" },
       { name = "path" }
-    }
+    },
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      end,
+    },
   }
 
   cmp.setup(setup)
